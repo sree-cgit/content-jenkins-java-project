@@ -35,5 +35,13 @@ pipeline {
               sh 'hostname'
           }
       }
+      stage('Promoting To Green'){
+          agent {
+             label 'apace'
+          }
+          steps {
+             sh 'cp /var/www/html/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/'
+          }   
+      }
     }
 }
