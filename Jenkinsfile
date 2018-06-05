@@ -63,7 +63,7 @@ pipeline {
             sh 'git checkout master'
             echo 'Merging Development into Master Branch'
             sh 'git merge development'
-            sh 'git remote set-url origin https://sree-cgit:Sree.17@infy@github.com/sree-cgit/content-jenkins-java-project.git'
+            sh 'git remote set-url origin https://sree-cgit:Sree.17%40infy@github.com/sree-cgit/content-jenkins-java-project.git'
             echo 'Pushing to Origin Master'
             sh 'git push origin master'
           }
