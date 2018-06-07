@@ -76,4 +76,12 @@ pipeline {
           }
       } 
     }
+    post {
+       failure {
+           emailext (
+              subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Failed!",
+              to: "sreekanthchalla.17@gmail.com"
+           )
+       }
+    }
 }
