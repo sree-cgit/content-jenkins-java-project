@@ -2,6 +2,9 @@ pipeline {
     agent {
       label 'apache'
     }
+    environment {
+       MAJOR_VERSION = 1
+    }
     stages {
        stage('Unit Tests') {
            steps {
@@ -23,7 +26,7 @@ pipeline {
          steps {
              echo 'Deploying to Apache Web Server'
              sh "mkdir -p /var/www/html/rectangles/all/${env.BRANCH_NAME}"
-             sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}"
+             sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}"
          }
      }
       stage('Testing on Centos') {
@@ -31,7 +34,7 @@ pipeline {
           label 'centos'
           }
           steps {
-              sh "wget http://sreeram23172.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
+              sh "wget http://sreeram23172.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
               sh 'pwd'
               sh 'hostname'
           }
@@ -44,7 +47,7 @@ pipeline {
              branch 'master'
           }
           steps {
-             sh "cp /var/www/html/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/"
+             sh "cp /var/www/html/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/"
           }   
       }
       stage('Promote Development Branch to Master') {
@@ -67,6 +70,9 @@ pipeline {
             sh 'git remote set-url origin https://sree-cgit:Sree.17%40infy@github.com/sree-cgit/content-jenkins-java-project.git'
             echo 'Pushing to Origin Master'
             sh 'git push origin master'
+            echo "Tagging"
+            sh "git tag rectangles_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+            sh "git push origin rectangles_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}" 
           }
       } 
     }
