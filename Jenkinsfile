@@ -34,7 +34,7 @@ pipeline {
           label 'centos'
           }
           steps {
-              sh "wget http://sreeram23172.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
+              sh "wget http://54.244.213.5/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
               sh 'pwd'
               sh 'hostname'
           }
