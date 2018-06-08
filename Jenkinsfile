@@ -85,4 +85,14 @@ pipeline {
            )
        }
     }
+    post {
+       success {
+           emailext (
+              subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Success",
+              body: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Success!. Please Check",
+              to: "sreekanthchalla.17@gmail.com"
+           )
+       }
+    }
+
 }
