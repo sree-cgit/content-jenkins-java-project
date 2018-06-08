@@ -77,15 +77,6 @@ pipeline {
       } 
     }
     post {
-       failure {
-           emailext (
-              subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Failed!",
-              body: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Failed!. Please Check",
-              to: "sreekanthchalla.17@gmail.com"
-           )
-       }
-    }
-    post {
        success {
            emailext (
               subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Success",
