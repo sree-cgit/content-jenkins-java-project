@@ -6,6 +6,11 @@ pipeline {
        MAJOR_VERSION = 1
     }
     stages {
+       stage('Shared Library'){
+          steps{
+             sayHello "Sreekanth"
+          }
+       }
        stage('Unit Tests') {
            steps {
               sh 'ant -f test.xml'
